@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import DeckView from '../views/DeckView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      redirect: '/intent',
     },
     {
       path: '/intent',
@@ -15,39 +14,26 @@ const router = createRouter({
       component: () => import('../views/IntentView.vue'),
     },
     {
-      path: '/draw',
-      name: 'draw',
-      component: () => import('../views/DrawView.vue'),
-    },
-    {
-      path: '/reading/:id',
-      name: 'reading',
-      component: () => import('../views/ReadingView.vue'),
-    },
-    {
-      path: '/journal/:id',
-      name: 'journal',
-      component: () => import('../views/JournalView.vue'),
-    },
-    {
-      path: '/history',
-      name: 'history',
-      component: () => import('../views/HistoryView.vue'),
-    },
-    {
-      path: '/learn',
-      name: 'learn',
-      component: () => import('../views/LearnView.vue'),
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('../views/SettingsView.vue'),
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: '/deck',
+      name: 'deck',
+      component: DeckView,
+      children: [
+        {
+          name: 'simple',
+          path: 'simple',
+          component: () => import('../views/DeckSimpleView.vue'),
+        },
+        {
+          name: 'three',
+          path: 'three',
+          component: () => import('../views/DeckThreeView.vue'),
+        },
+        {
+          name: 'other',
+          path: 'other',
+          component: () => import('../views/DeckOtherView.vue'),
+        },
+      ],
     },
   ],
 })

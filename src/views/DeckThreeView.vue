@@ -3,6 +3,7 @@
     <h1>Draw a Card</h1>
     <div class="card-back">
       <!-- Card back animation -->
+      dsfsdf
     </div>
   </div>
 </template>
