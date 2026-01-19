@@ -3,6 +3,7 @@ import { defineComponent, PropType } from 'vue';
 
 import type { TarotCard } from '../data/tarotCards';
 import { getRandomCard } from '../data/tarotCards';
+const animationDuration = 0.6; // seconds
 
 export default defineComponent({
   name: 'TarotCard',
@@ -20,7 +21,9 @@ export default defineComponent({
   data() {
     return {
       reversed: false,
+      transformStyle: false,
       currentCard: {} as TarotCard | undefined,
+      imageUrl: '',
     };
   },
   computed: {
@@ -31,20 +34,23 @@ export default defineComponent({
   methods: {
     reverse() {
       // Logic to open a modal or expand card info can be added here
-      this.reversed = !this.reversed;
-      this.pullCard();
+      this.transformStyle = !this.transformStyle;
+      setTimeout(() => {
+        this.reversed = !this.reversed;
+        this.pullCard();
+      }, animationDuration * 500);
     },
-    pullCard() {
+    async pullCard() {
       if (!this.reversed) return;
       // Logic to pull a new card can be added here
       this.currentCard = getRandomCard();
-      console.log(this.currentCard);
+      this.imageUrl = (await import(`../${this.currentCard?.url}`)).default;
     },
   },
 });
 </script>
 <template>
-  <div class="tarot-card-wrapper" :class="{ reversed: reversed }">
+  <div class="tarot-card-wrapper" :class="{ transformAnimation: transformStyle }">
     <div class="tarot-card" @click="reverse">
       <!-- Card Front -->
       <div class="card-front">
@@ -67,8 +73,8 @@ export default defineComponent({
         </div>
       </div>
       <!-- Card Back (Image) -->
-      <div class="card-back">
-        <img :src="currentCard?.url" :alt="card.name" class="card-back-image" />
+      <div class="card-back" v-if="reversed">
+        <img :src="imageUrl" :alt="card.name" class="card-back-image" />
       </div>
     </div>
   </div>
@@ -82,6 +88,7 @@ export default defineComponent({
 }
 
 .tarot-card {
+  position: relative;
   width: 30vmin;
   height: 50vmin;
   border-radius: 12px;
@@ -91,11 +98,11 @@ export default defineComponent({
   margin: 20px;
   cursor: pointer;
   transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+    transform 0.6s ease-in-out,
+    box-shadow 0.6s ease-in-out;
 }
 
-.tarot-card-wrapper.reversed .tarot-card {
+.tarot-card-wrapper.transformAnimation .tarot-card {
   transform: rotateY(180deg);
 }
 
@@ -111,7 +118,6 @@ export default defineComponent({
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
-
   border-radius: 20px;
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.3),
@@ -132,11 +138,25 @@ export default defineComponent({
   pointer-events: none;
 }
 
+.card-back {
+  position: absolute;
+  top: 0;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  transform: scaleX(-1);
+}
 .card-header,
 .card-footer {
   display: flex;
   justify-content: space-between;
-  position: relative;
   z-index: 1;
 }
 
@@ -160,7 +180,7 @@ export default defineComponent({
 .card-image {
   font-size: 8rem;
   filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.2));
-  animation: float 3s ease-in-out infinite;
+  /* animation: float 3s ease-in-out infinite; */
 }
 
 .card-title {

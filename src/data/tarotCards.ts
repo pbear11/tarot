@@ -1,18 +1,18 @@
 export interface TarotCard {
-  id: number
-  name: string
-  arcana: 'Major' | 'Minor'
-  suit?: string
-  number?: number
-  upright: string
-  reversed: string
-  description: string
-  url?: string
+  id: number;
+  name: string;
+  arcana: 'Major' | 'Minor';
+  suit?: string;
+  number?: number;
+  upright: string;
+  reversed: string;
+  description: string;
+  url: string;
 }
 
 export function getRandomCard(): TarotCard | undefined {
-  const randomIndex = (crypto.getRandomValues(new Uint32Array(1))[0] as number) % tarotCards.length
-  return tarotCards[randomIndex]
+  const randomIndex = (crypto.getRandomValues(new Uint32Array(1))[0] as number) % tarotCards.length;
+  return tarotCards[randomIndex];
 }
 
 export const tarotCards: TarotCard[] = [
@@ -779,4 +779,4 @@ export const tarotCards: TarotCard[] = [
     description: 'Master material abundance with wisdom. Lead through prosperity.',
     url: '/assets/img/cards/Pents14.jpg',
   },
-]
+];
