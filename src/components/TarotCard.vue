@@ -2,7 +2,7 @@
 import { defineComponent, PropType } from 'vue';
 
 import type { TarotCardType } from '../data/tarotCards';
-import { getRandomCard } from '../data/tarotCards';
+import { getRandomCard, getReverseState } from '../data/tarotCards';
 const animationDuration = 0.6; // seconds
 
 export default defineComponent({
@@ -20,38 +20,42 @@ export default defineComponent({
   },
   data() {
     return {
-      reversed: false,
+      isCardShowing: false,
       transformStyle: false,
-      duringAnimation: false,
+      isAnimationOngoing: false,
+      cardReverseState: false,
       currentCard: {} as TarotCardType | undefined,
       imageUrl: '',
     };
   },
   computed: {
     cardOrientation(): string {
-      return this.reversed ? 'Reversed' : 'Upright';
+      return this.isCardShowing ? 'Reversed' : 'Upright';
     },
   },
   methods: {
     reverse() {
-      if (this.duringAnimation) return;
+      if (this.isAnimationOngoing) return;
       this.transformStyle = !this.transformStyle;
-      this.duringAnimation = true;
+      this.isAnimationOngoing = true;
       setTimeout(() => {
-        this.reversed = !this.reversed;
-        this.pullCard();
+        if (this.isCardShowing) {
+          this.$emit('cardClose');
+        } else {
+          this.pullCard();
+        }
+        this.isCardShowing = !this.isCardShowing;
       }, animationDuration * 500);
-      // CLick guard to prevent multiple clicks during animation
       setTimeout(() => {
-        this.duringAnimation = false;
+        // Click guard off after animation completes
+        this.isAnimationOngoing = false;
       }, animationDuration * 1000);
     },
     async pullCard() {
-      if (!this.reversed) return;
-      // Logic to pull a new card can be added here
+      this.cardReverseState = getReverseState();
       this.currentCard = getRandomCard();
-      this.$emit('cardPulled', this.currentCard);
       this.imageUrl = (await import(`../${this.currentCard?.url}`)).default;
+      this.$emit('cardPull', this.currentCard, this.cardReverseState);
     },
   },
 });
@@ -80,8 +84,13 @@ export default defineComponent({
         </div>
       </div>
       <!-- Card Back (Image) -->
-      <div class="card-back" v-if="reversed">
-        <img :src="imageUrl" :alt="card.name" class="card-back-image" />
+      <div class="card-back" v-if="isCardShowing">
+        <img
+          :style="{ transform: cardReverseState ? 'rotate(180deg)' : '' }"
+          :src="imageUrl"
+          :alt="card.name"
+          class="card-back-image"
+        />
       </div>
     </div>
   </div>

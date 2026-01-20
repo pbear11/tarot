@@ -10,9 +10,14 @@ export interface TarotCardType {
   url: string;
 }
 
-export function getRandomCard(): TarotCardType | undefined {
+export function getRandomCard(): TarotCardType {
   const randomIndex = (crypto.getRandomValues(new Uint32Array(1))[0] as number) % tarotCards.length;
-  return tarotCards[randomIndex];
+  return tarotCards[randomIndex] as TarotCardType;
+}
+
+export function getReverseState(): boolean {
+  const isReversed = (crypto.getRandomValues(new Uint8Array(1))[0] as number) > 127;
+  return isReversed;
 }
 
 export const tarotCards: TarotCardType[] = [

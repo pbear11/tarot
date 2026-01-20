@@ -18,6 +18,38 @@ a,
   padding: 3px;
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.align-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+$sizes: (5, 10, 15, 20, 25, 30, 40, 50);
+@each $size in $sizes {
+  .ml-#{$size} {
+    margin-left: #{$size}px;
+  }
+  .mr-#{$size} {
+    margin-right: #{$size}px;
+  }
+  .mt-#{$size} {
+    margin-top: #{$size}px;
+  }
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -39,6 +71,7 @@ a,
     transform: translateY(0);
   }
 }
+
 @keyframes float {
   0%,
   100% {
