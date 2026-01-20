@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-import type { TarotCard } from '../data/tarotCards';
+import type { TarotCardType } from '../data/tarotCards';
 import { getRandomCard } from '../data/tarotCards';
 const animationDuration = 0.6; // seconds
 
@@ -9,9 +9,9 @@ export default defineComponent({
   name: 'TarotCard',
   props: {
     card: {
-      type: Object as PropType<TarotCard>,
+      type: Object as PropType<TarotCardType>,
       required: true,
-      default: () => ({}) as TarotCard,
+      default: () => ({}) as TarotCardType,
     },
     isReversed: {
       type: Boolean,
@@ -22,7 +22,8 @@ export default defineComponent({
     return {
       reversed: false,
       transformStyle: false,
-      currentCard: {} as TarotCard | undefined,
+      duringAnimation: false,
+      currentCard: {} as TarotCardType | undefined,
       imageUrl: '',
     };
   },
@@ -33,17 +34,23 @@ export default defineComponent({
   },
   methods: {
     reverse() {
-      // Logic to open a modal or expand card info can be added here
+      if (this.duringAnimation) return;
       this.transformStyle = !this.transformStyle;
+      this.duringAnimation = true;
       setTimeout(() => {
         this.reversed = !this.reversed;
         this.pullCard();
       }, animationDuration * 500);
+      // CLick guard to prevent multiple clicks during animation
+      setTimeout(() => {
+        this.duringAnimation = false;
+      }, animationDuration * 1000);
     },
     async pullCard() {
       if (!this.reversed) return;
       // Logic to pull a new card can be added here
       this.currentCard = getRandomCard();
+      this.$emit('cardPulled', this.currentCard);
       this.imageUrl = (await import(`../${this.currentCard?.url}`)).default;
     },
   },

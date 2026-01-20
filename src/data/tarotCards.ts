@@ -1,4 +1,4 @@
-export interface TarotCard {
+export interface TarotCardType {
   id: number;
   name: string;
   arcana: 'Major' | 'Minor';
@@ -10,12 +10,12 @@ export interface TarotCard {
   url: string;
 }
 
-export function getRandomCard(): TarotCard | undefined {
+export function getRandomCard(): TarotCardType | undefined {
   const randomIndex = (crypto.getRandomValues(new Uint32Array(1))[0] as number) % tarotCards.length;
   return tarotCards[randomIndex];
 }
 
-export const tarotCards: TarotCard[] = [
+export const tarotCards: TarotCardType[] = [
   // Major Arcana
   {
     id: 0,
