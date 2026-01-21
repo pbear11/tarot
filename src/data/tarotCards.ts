@@ -5,12 +5,9 @@ export interface TarotCardType {
   suit?: string;
   number?: number;
   vibe?: string;
-  upright:
-    | string
-    | { summary: string; love: string; career: string; life: string; esoteric: string };
-  reversed:
-    | string
-    | { summary: string; love: string; career: string; life: string; esoteric: string };
+  upright: { summary: string; love: string; career: string; life: string; esoteric: string };
+  reversed: { summary: string; love: string; career: string; life: string; esoteric: string };
+  yesNo?: { upright: 'YES' | 'NO' | 'DEPENDS'; reversed: 'YES' | 'NO' | 'DEPENDS' };
   description?: string;
   url: string;
 }
@@ -51,6 +48,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling aimless or foolish. You are seeking change just for the sake of it.',
       esoteric: 'The spirit falling into matter without purpose; wasted potential.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/fool.jpg',
   },
   {
@@ -74,6 +72,7 @@ export const tarotCards: TarotCardType[] = [
       life: "A lack of focus. You have the tools but you aren't using them. Creative block.",
       esoteric: 'The "Black Magician"; the will used for ego-dominance instead of divine work.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/magician.jpg',
   },
   {
@@ -96,6 +95,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Being too "busy" to listen to your soul. Disconnection from the spiritual self.',
       esoteric: 'The veil is closed; secrets that remain hidden due to a lack of preparation.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/highPriestess.jpg',
   },
   {
@@ -118,6 +118,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Neglecting self-care. You are pouring from an empty cup and feeling depleted.',
       esoteric: 'The barren mother; the loss of connection to the rhythm of nature.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/empress.jpg',
   },
   {
@@ -141,6 +142,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Rebellion against the "man." Or, feeling powerless and disorganized.',
       esoteric: 'The broken scepter; the loss of the right to rule through ego and force.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/emperor.jpg',
   },
   {
@@ -165,6 +167,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Finding your own truth. You don't need a middleman to talk to the divine.",
       esoteric: 'The rebel priest; the destruction of outdated dogmas to find true faith.',
     },
+    yesNo: { upright: 'YES', reversed: 'DEPENDS' },
     url: '/assets/img/cards/hierophant.jpg',
   },
   {
@@ -188,6 +191,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Internal conflict. You are at war with yourself over a major life decision.',
       esoteric: 'The divided self; the failure to integrate the masculine and feminine.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/lovers.jpg',
   },
   {
@@ -211,6 +215,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Road rage (literal or metaphorical). You are being driven by your impulses.',
       esoteric: 'The shattered chariot; the will being pulled apart by uncontrolled emotions.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/chariot.jpg',
   },
   {
@@ -232,6 +237,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Burnout. You've been fighting too hard; your inner strength needs a recharge.",
       esoteric: "The lion unleashed; the ego running wild without the soul's guidance.",
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/strength.jpg',
   },
   {
@@ -253,6 +259,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Paranoia or hiding from the world. It's time to come out of the cave.",
       esoteric: 'The extinguished lamp; wandering in the dark without a goal.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/hermit.jpg',
   },
   {
@@ -274,6 +281,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling like a victim of circumstance. Breaking a repetitive karmic cycle.',
       esoteric: 'The wheel is stuck; stagnation caused by fighting the laws of nature.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/wheeloffortune.jpg',
   },
   {
@@ -295,6 +303,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Refusing to see your part in a situation. Escaping accountability.',
       esoteric: 'The tipped scales; injustice that must be corrected by higher laws.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/justice.jpg',
   },
   {
@@ -316,6 +325,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Trying to force a result. You are hanging on for the wrong reasons.',
       esoteric: 'The forced suspension; stagnation without the spiritual lesson.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/hangedman.jpg',
   },
   {
@@ -337,6 +347,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Stuck in the "in-between". You are carrying a ghost of the past.',
       esoteric: 'The rot; staying in the decay because you fear rebirth.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/death.jpg',
   },
   {
@@ -358,6 +369,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Overindulgence. You are out of sync with your natural rhythm.',
       esoteric: 'The spilled cup; the failure of the alchemical process.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/temperance.jpg',
   },
   {
@@ -379,6 +391,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Sobriety, recovery, and letting go of a limiting belief. Freedom.',
       esoteric: 'The light of the spirit piercing the darkness of the ego.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/devil.jpg',
   },
   {
@@ -400,6 +413,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Internal crisis. The "explosion" is happening inside your mind, not outside.',
       esoteric: 'The crumbling interior; the slow decay of a structure that refuses to fall.',
     },
+    yesNo: { upright: 'NO', reversed: 'DEPENDS' },
     url: '/assets/img/cards/tower.jpg',
   },
   {
@@ -421,6 +435,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Pessimism. You are looking at the mud instead of the stars.',
       esoteric: 'The clouded sky; the light of inspiration is temporarily obscured.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/star.jpg',
   },
   {
@@ -442,6 +457,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Mental clarity returns. You no longer fear the shadows under the bed.',
       esoteric: 'The morning sun; the dissipation of the hallucinations of the moon.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'YES' },
     url: '/assets/img/cards/moon.jpg',
   },
   {
@@ -463,6 +479,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Burnout from being "on" all the time. You need a little shade.',
       esoteric: 'The eclipse; the light is still there, but your perception is blocked.',
     },
+    yesNo: { upright: 'YES', reversed: 'DEPENDS' },
     url: '/assets/img/cards/sun.jpg',
   },
   {
@@ -484,6 +501,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling "stuck" in a cycle. You hear the call but you\'re hitting snooze.',
       esoteric: 'The muffled trumpet; refusing the evolutionary leap of the spirit.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/judgement.jpg',
   },
   {
@@ -505,9 +523,10 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling unfulfilled despite reaching a goal. You need a new mountain.',
       esoteric: 'The broken wreath; the soul refusing to finish the earthly cycle.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/world.jpg',
   },
-  // Cups
+  // Cups (IDs 22-35)
   {
     id: 22,
     name: 'Ace of Cups',
@@ -528,6 +547,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Ignoring your intuition. You are pouring from an empty cup.',
       esoteric: 'The inner well drying up; emotional stagnation.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups01.jpg',
   },
   {
@@ -550,6 +570,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Disconnection from yourself. You are out of sync with your heart.',
       esoteric: 'Disharmony; the two waters refuse to mix.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups02.jpg',
   },
   {
@@ -572,6 +593,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Isolation. Or, conversely, partying to avoid your true feelings.',
       esoteric: 'Dissipation; energy wasted on the superficial.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups03.jpg',
   },
   {
@@ -594,6 +616,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Coming out of a period of withdrawal. Choosing to say "Yes" again.',
       esoteric: 'Re-emergence; the water begins to flow once more.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Cups04.jpg',
   },
   {
@@ -616,6 +639,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'The bridge is still standing. You are crossing over to a new chapter.',
       esoteric: 'Resurrection; finding the two cups that remain upright.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Cups05.jpg',
   },
   {
@@ -638,6 +662,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Stuck in a loop of "the good old days." It\'s time to grow up.',
       esoteric: 'Corruption of memory; nostalgia as a prison.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/Cups06.jpg',
   },
   {
@@ -660,6 +685,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Realism over fantasy. You finally know what you want.',
       esoteric: 'The waking mind; piercing the veil of the astral plane.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'YES' },
     url: '/assets/img/cards/Cups07.jpg',
   },
   {
@@ -682,6 +708,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Avoiding the hard walk. You are staying in the "swamp" out of habit.',
       esoteric: 'The soul turning back; fear of the mountain climb.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups08.jpg',
   },
   {
@@ -704,6 +731,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Inner emptiness despite outer wealth. The "hangover" of excess.',
       esoteric: "The ego's trap; thinking physical comfort is spiritual peace.",
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups09.jpg',
   },
   {
@@ -726,6 +754,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling "homeless" within yourself. A lack of roots.',
       esoteric: 'The fading rainbow; the loss of shared vision.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups10.jpg',
   },
   {
@@ -748,6 +777,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Escapism. Using drugs, alcohol, or daydreams to avoid reality.',
       esoteric: 'The clouded vision; a message lost in the static.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups11.jpg',
   },
   {
@@ -770,6 +800,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Melodrama. You are drowning in your feelings rather than riding them.',
       esoteric: 'The seducer; using emotion as a weapon rather than a gift.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups12.jpg',
   },
   {
@@ -792,6 +823,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Insecurity. You are absorbing everyone else\'s "vibe" and losing your own.',
       esoteric: 'The drowned queen; overwhelmed by the ocean of collective pain.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups13.jpg',
   },
   {
@@ -814,9 +846,10 @@ export const tarotCards: TarotCardType[] = [
       life: 'Repressed emotions leading to an explosion. Lack of internal control.',
       esoteric: 'The poisoned well; using wisdom to manipulate rather than heal.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Cups14.jpg',
   },
-  // Wands (Updated with detailed data)
+  // Wands (IDs 36-49)
   {
     id: 36,
     name: 'Ace of Wands',
@@ -837,6 +870,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling uninspired or "extinguished." Recharge your batteries.',
       esoteric: 'The Fire turned inward; potential without a vessel.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands01.jpg',
   },
   {
@@ -859,6 +893,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Restlessness. You feel stuck in your current "castle" but afraid to leave.',
       esoteric: 'The scattered will; vision without a concrete strategy.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands02.jpg',
   },
   {
@@ -881,6 +916,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Playing small. You're staying on the shore because you're afraid of the deep.",
       esoteric: 'The setting sun; energy waning before the goal is met.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands03.jpg',
   },
   {
@@ -903,6 +939,7 @@ export const tarotCards: TarotCardType[] = [
       life: "A lack of roots. You feel like you don't belong in your current community.",
       esoteric: 'The fallen canopy; celebration without the foundation.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands04.jpg',
   },
   {
@@ -925,6 +962,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Overcoming obstacles. The noise stops, and you can finally focus.',
       esoteric: 'The end of the battle; peace through exhaustion.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Wands05.jpg',
   },
   {
@@ -947,6 +985,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Imposter syndrome. You reached the top but feel like a fraud.',
       esoteric: 'The hollow crown; success that lacks internal merit.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands06.jpg',
   },
   {
@@ -969,6 +1008,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Exhaustion. You've been fighting for too long; it's okay to step down.",
       esoteric: 'The shield breaks; courage replaced by self-doubt.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands07.jpg',
   },
   {
@@ -991,6 +1031,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling out of control. Like an arrow shot into the wind with no aim.',
       esoteric: 'The fallen arrows; energy moving in too many directions.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands08.jpg',
   },
   {
@@ -1013,6 +1054,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'The "wall" is in your mind. You are defending against a threat that isn\'t there.',
       esoteric: 'The weary soldier; strength failing due to lack of faith.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands09.jpg',
   },
   {
@@ -1035,6 +1077,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'A necessary breakdown. Letting go of "shoulds" to find "wants".',
       esoteric: 'The sticks break; liberation through the end of duty.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Wands10.jpg',
   },
   {
@@ -1057,6 +1100,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling scattered and bored. You have a dozen half-finished ideas.',
       esoteric: 'The smoke without the fire; potential that lacks groundedness.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands11.jpg',
   },
   {
@@ -1079,6 +1123,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Aggression. You are forcing things that aren't ready to move yet.",
       esoteric: 'The forest fire; movement that destroys rather than creates.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands12.jpg',
   },
   {
@@ -1101,6 +1146,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Introversion caused by exhaustion. You\'ve lost your "glow" temporarily.',
       esoteric: "The darkened sun; creativity blocked by the ego's shadow.",
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands13.jpg',
   },
   {
@@ -1123,9 +1169,10 @@ export const tarotCards: TarotCardType[] = [
       life: "Impatience. You are angry that the world isn't moving as fast as you are.",
       esoteric: 'The burning king; the will turned into a weapon of dominance.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Wands14.jpg',
   },
-  // Swords (Updated with detailed data)
+  // Swords (IDs 50-63)
   {
     id: 50,
     name: 'Ace of Swords',
@@ -1146,6 +1193,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Mental fog. You are overthinking so much you've lost the point.",
       esoteric: 'The shattered blade; thought without justice or direction.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Swords01.jpg',
   },
   {
@@ -1168,6 +1216,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Information overload. You see the truth now, and it's overwhelming.",
       esoteric: 'The broken peace; forced action through necessity.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Swords02.jpg',
   },
   {
@@ -1190,6 +1239,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Optimism returning. You are no longer defined by your scars.',
       esoteric: 'The healing scar; wisdom gained through deep suffering.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Swords03.jpg',
   },
   {
@@ -1212,6 +1262,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Exhaustion from not resting. Your mind is spinning in circles.',
       esoteric: 'The broken truce; forced to fight before strength returns.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/Swords04.jpg',
   },
   {
@@ -1234,6 +1285,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'The drama is fading. You are ready to forgive and move on.',
       esoteric: 'The resolution; realizing that "winning" was an illusion.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Swords05.jpg',
   },
   {
@@ -1256,6 +1308,7 @@ export const tarotCards: TarotCardType[] = [
       life: "You're bringing the old drama to the new place. Drop the baggage.",
       esoteric: 'The stalled journey; the mind refuses to leave the conflict.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Swords06.jpg',
   },
   {
@@ -1278,6 +1331,7 @@ export const tarotCards: TarotCardType[] = [
       life: "The old tricks aren't working anymore. It's time to be direct.",
       esoteric: 'The thief returned; realizing that shortcuts have costs.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'YES' },
     url: '/assets/img/cards/Swords07.jpg',
   },
   {
@@ -1300,6 +1354,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'The "aha" moment. The cage doors were never locked.',
       esoteric: 'Freedom; the intellect destroying its own limiting dogmas.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Swords08.jpg',
   },
   {
@@ -1322,6 +1377,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Waking up from the nightmare. Seeing the light at the end of the tunnel.',
       esoteric: 'The dawn; recognizing that fear is just a mental shadow.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Swords09.jpg',
   },
   {
@@ -1344,6 +1400,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'You are crawling back to the light. The worst has already happened.',
       esoteric: 'Resurrection; the spirit surviving the death of the ego.',
     },
+    yesNo: { upright: 'NO', reversed: 'DEPENDS' },
     url: '/assets/img/cards/Swords10.jpg',
   },
   {
@@ -1366,6 +1423,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Being "poked" by petty drama. Someone is talking behind your back.',
       esoteric: 'The whirlwind; chaotic thoughts with no grounding.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Swords11.jpg',
   },
   {
@@ -1388,6 +1446,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Being a "know-it-all" who hurts people\'s feelings in the process.',
       esoteric: 'The storm; thought that destroys everything in its path.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Swords12.jpg',
   },
   {
@@ -1410,6 +1469,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Your sharp tongue is causing bridges to burn. Soften your edges.',
       esoteric: 'The ice queen; wisdom turned into a weapon of isolation.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Swords13.jpg',
   },
   {
@@ -1432,9 +1492,10 @@ export const tarotCards: TarotCardType[] = [
       life: 'A lack of mental discipline. Using your wit to evade the truth.',
       esoteric: 'The dark judge; the intellect disconnected from the soul.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Swords14.jpg',
   },
-  // Pentacles
+  // Pentacles (IDs 64-77)
   {
     id: 64,
     name: 'Ace of Pentacles',
@@ -1455,6 +1516,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling ungrounded. You are building on sand rather than stone.',
       esoteric: 'The hollow coin; potential wasted on the superficial.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents01.jpg',
   },
   {
@@ -1477,6 +1539,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Chaos. You are reacting to life rather than managing it.',
       esoteric: 'The broken loop; the failure of movement and rhythm.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/Pents02.jpg',
   },
   {
@@ -1499,6 +1562,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Cutting corners. You are rushing the process and the foundation is weak.',
       esoteric: 'The flawed design; energy wasted due to ego in the group.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents03.jpg',
   },
   {
@@ -1521,6 +1585,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Releasing the need to control. Deep exhales and loosened grips.',
       esoteric: "The cracked vault; the realization that you can't take it with you.",
     },
+    yesNo: { upright: 'YES', reversed: 'DEPENDS' },
     url: '/assets/img/cards/Pents04.jpg',
   },
   {
@@ -1543,6 +1608,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Realizing that abundance is a mindset. The "winter" of the soul is over.',
       esoteric: 'The turning tide; the light in the window is finally reached.',
     },
+    yesNo: { upright: 'NO', reversed: 'YES' },
     url: '/assets/img/cards/Pents05.jpg',
   },
   {
@@ -1565,6 +1631,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Selfishness. Or, giving so much that you have nothing left for yourself.',
       esoteric: 'The scale tips; the corruption of the act of giving.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents06.jpg',
   },
   {
@@ -1587,6 +1654,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Short-term thinking. You are pulling up the seeds to see if they've grown.",
       esoteric: 'The withered vine; energy spent on the wrong ground.',
     },
+    yesNo: { upright: 'DEPENDS', reversed: 'NO' },
     url: '/assets/img/cards/Pents07.jpg',
   },
   {
@@ -1600,7 +1668,7 @@ export const tarotCards: TarotCardType[] = [
       love: 'Working on the relationship. Small, daily acts of devotion.',
       career: 'Mastering a new tech or craft. High focus on the details. Success through work.',
       life: 'Practice makes perfect. You are in a "learning" phase of your journey.',
-      esoteric: 'Sun in Virgo: Prudence. The joy of the small task welldone.',
+      esoteric: 'Sun in Virgo: Prudence. The joy of the small task well done.',
     },
     reversed: {
       summary: 'Perfectionism, lack of focus, or shortcuts.',
@@ -1609,6 +1677,7 @@ export const tarotCards: TarotCardType[] = [
       life: "Missing the big picture because you're too obsessed with a tiny detail.",
       esoteric: 'The dull tool; talent wasted through lack of discipline.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents08.jpg',
   },
   {
@@ -1631,6 +1700,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Losing your connection to nature. Living in a "golden cage."',
       esoteric: 'The gilded cage; wealth that lacks spiritual substance.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents09.jpg',
   },
   {
@@ -1653,6 +1723,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Disconnection from your roots. Breaking a tradition that no longer works.',
       esoteric: 'The crumbling estate; the transience of all material things.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents10.jpg',
   },
   {
@@ -1675,6 +1746,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Poor health habits. Ignoring the needs of your physical body.',
       esoteric: 'The dust in the wind; potential that refuses to take root.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents11.jpg',
   },
   {
@@ -1697,6 +1769,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Feeling stuck. You are in a rut and the walls are closing in.',
       esoteric: 'The stopped plow; the work has become a burden without a soul.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents12.jpg',
   },
   {
@@ -1719,6 +1792,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'Disconnected from nature. Neglecting your domestic environment.',
       esoteric: 'The barren ground; nurturing energy turned inward and soured.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents13.jpg',
   },
   {
@@ -1741,6 +1815,7 @@ export const tarotCards: TarotCardType[] = [
       life: 'The "miser." Having wealth but being afraid to spend even a penny.',
       esoteric: 'The corrupted king; the soul lost in the worship of gold.',
     },
+    yesNo: { upright: 'YES', reversed: 'NO' },
     url: '/assets/img/cards/Pents14.jpg',
   },
 ];

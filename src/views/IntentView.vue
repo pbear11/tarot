@@ -1,34 +1,15 @@
 <script setup lang="ts">
-import router from '@/router'
-import { ref } from 'vue'
-import { pullOptions } from '../data/options'
-import { type TarotCard } from '../data/tarotCards'
+import router from '@/router';
+import { ref } from 'vue';
+import { pullOptions } from '../data/options';
+import { type TarotCard } from '../data/tarotCards';
 
-const selectedCount = ref(1)
-const pulledCards = ref<TarotCard[]>([])
-// const cardReversed = ref<boolean[]>([])
-// const pulling = ref(false)
-
-// const pullCards = async () => {
-//   if (pulling.value) return
-
-//   pulling.value = true
-
-//   // Simulate shuffling animation
-//   await new Promise((resolve) => setTimeout(resolve, 800))
-
-//   const cards = getRandomCards(selectedCount.value)
-//   pulledCards.value = cards
-
-//   // Randomly determine if each card is reversed
-//   cardReversed.value = cards.map(() => Math.random() > 0.5)
-
-//   pulling.value = false
-// }
+const selectedCount = ref(1);
+const pulledCards = ref<TarotCard[]>([]);
 
 const selectOption = (route: string) => {
-  router.push(route)
-}
+  router.push(route);
+};
 </script>
 
 <template>
@@ -58,18 +39,22 @@ const selectOption = (route: string) => {
 
     <!-- Guidance Text -->
     <div v-if="pulledCards.length === 0" class="guidance">
-      <p>💫 Set your intention and choose option that is currently needed for you.</p>
-      <p>🌟 Trust in the process and embrace the insights that come your way.</p>
-      <p>Every card is totally random</p>
+      <p>
+        💫 To ensure your reading is untainted and spiritually aligned, we use a Cryptographic
+        Randomness Algorithm. It draws from the inherent chaos of the physical world to determine
+        your cards. We’ve removed the human 'pattern' from the code, allowing the universe's true
+        synchronicity to speak through the data./p>
+      </p>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .intent-view {
   min-height: 100vh;
   padding: 2rem 1rem;
   color: #fff;
+  background-color: $black;
   width: 100vw;
   height: 100%;
   overflow: auto;

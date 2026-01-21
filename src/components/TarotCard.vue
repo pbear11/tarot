@@ -273,8 +273,8 @@ img {
 /* Phone styles */
 @media (max-width: 480px) {
   .tarot-card {
-    width: 200px;
-    height: 300px;
+    width: 250px;
+    height: 400px;
     margin: 10px;
   }
 }

@@ -52,42 +52,63 @@ export default defineComponent({
 <template>
   <div class="simple flex-col align-center">
     <tarot-card class="mt-50" @cardPull="handleCardPulled" @cardClose="clearValue" />
-    <div class="card flex-col align-center" v-if="isCardDrawn">
-      <div class="card-name">
-        {{ currentCard.name || 'No card drawn yet' }}
-      </div>
+    <div class="reading flex-col align-center" v-if="isCardDrawn">
+      <div class="reading-container flex-col align-center">
+        <div class="reading-title flex-row align-center">
+          <div>
+            {{ currentCard.name || 'No card drawn yet' }}
+          </div>
 
-      <div class="question-buttons flex-row">
-        <button
-          v-for="question in questionTypes"
-          :key="question"
-          @click="selectQuestion(question as QuestionType)"
-          :class="['question-btn', { active: selectedQuestion === question }]"
-        >
-          {{ question.charAt(0).toUpperCase() + question.slice(1) }}
-        </button>
-      </div>
+          <div class="reversed-badge" v-if="isReversed">Reversed</div>
+        </div>
 
-      <div class="card-explanation flex-col" v-if="selectedQuestion">
-        <div class="explanation-title">
-          <span class="bold"
-            >{{ selectedQuestion.charAt(0).toUpperCase() + selectedQuestion.slice(1) }}:</span
+        <div class="question-buttons flex-row">
+          <button
+            v-for="question in questionTypes"
+            :key="question"
+            @click="selectQuestion(question as QuestionType)"
+            :class="['question-btn', { active: selectedQuestion === question }]"
           >
+            {{ question.charAt(0).toUpperCase() + question.slice(1) }}
+          </button>
         </div>
-        <div class="explanation-text">
-          {{ getInterpretation() }}
-        </div>
-      </div>
 
-      <div class="card-basic-explanation flex-row" v-else>
-        <div>
-          {{
-            typeof (isReversed ? currentCard.reversed : currentCard.upright) === 'string'
-              ? isReversed
-                ? currentCard.reversed
-                : currentCard.upright
-              : (isReversed ? currentCard.reversed : currentCard.upright).summary
-          }}
+        <div class="reading-explanation flex-col" v-if="selectedQuestion">
+          <div class="explanation-title">
+            <span class="bold"
+              >{{ selectedQuestion.charAt(0).toUpperCase() + selectedQuestion.slice(1) }}:</span
+            >
+          </div>
+          <div class="explanation-text">
+            {{ getInterpretation() }}
+          </div>
+        </div>
+
+        <div class="reading-basic-explanation flex-col" v-else>
+          <div class="summary-label">
+            Summary:
+            <span class="summary-text">
+              {{
+                typeof (isReversed ? currentCard.reversed : currentCard.upright) === 'string'
+                  ? isReversed
+                    ? currentCard.reversed
+                    : currentCard.upright
+                  : (isReversed ? currentCard.reversed : currentCard.upright).summary
+              }}
+            </span>
+          </div>
+          <div class="yes-or-no-title">
+            Yes or No:
+            <span class="summary-text">
+              {{
+                currentCard.yesNo
+                  ? isReversed
+                    ? currentCard.yesNo.reversed
+                    : currentCard.yesNo.upright
+                  : 'N/A'
+              }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -97,36 +118,56 @@ export default defineComponent({
 <style scoped lang="scss">
 .simple {
   height: 100vh;
+  justify-content: space-between;
 }
 
-.card {
-  margin-top: 40px;
-  max-width: 600px;
-
-  .card-name {
-    font-weight: bold;
+.reading {
+  width: 100vw;
+  background: $light-black;
+  color: $gray-light;
+  padding: 24px;
+  .reading-container {
+    max-width: 500px;
+  }
+  .reading-title {
+    font-weight: 600;
     font-size: $font-size-xl;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  .reversed-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $gray-light;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .question-buttons {
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
 
     .question-btn {
-      padding: 8px 16px;
-      border: 2px solid #ccc;
+      padding: 10px 20px;
+      border: 1px solid #ddd;
       background-color: #fff;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: 500;
-      transition: all 0.3s ease;
+      font-size: $font-size-base;
+      transition: all 0.2s ease;
+      color: #333;
 
       &:hover {
         border-color: #999;
-        background-color: #f5f5f5;
+        background-color: #fafafa;
       }
 
       &.active {
@@ -137,33 +178,52 @@ export default defineComponent({
     }
   }
 
-  .card-explanation {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-left: 4px solid #333;
-    border-radius: 4px;
+  .reading-explanation {
+    margin-top: 18px;
+    padding: 16px;
+    background-color: $light-black;
+    border-radius: 8px;
+    border-left: 3px solid #333;
 
     .explanation-title {
-      margin-bottom: 10px;
       font-size: $font-size-lg;
+      font-weight: 600;
     }
 
     .explanation-text {
-      line-height: 1.6;
-      color: #555;
+      line-height: 1.7;
+      color: $gray-light;
+      font-size: 15px;
     }
   }
 
-  .card-basic-explanation {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
+  .reading-basic-explanation {
+    margin-top: 16px;
+    padding: 20px;
+    border-radius: 8px;
 
-    .bold {
-      min-width: fit-content;
+    .summary-label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: $font-size-base;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
+
+    .summary-text {
+      line-height: 1.7;
+      color: $gray-light;
+      font-size: $font-size-base;
+      text-transform: none;
+    }
+  }
+}
+@media (min-width: 769px) {
+  .reading {
+    height: 270px;
+  }
+  .reading-explanation {
+    width: 500px;
   }
 }
 </style>

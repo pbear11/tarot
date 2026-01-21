@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'DeckView',
-}
+};
 </script>
 
 <template>
@@ -10,12 +10,13 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .deck-view {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+  background-color: $black;
 }
 </style>
