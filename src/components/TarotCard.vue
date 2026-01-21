@@ -250,4 +250,32 @@ img {
     padding: 1rem;
   }
 }
+/* iPad styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tarot-card-wrapper {
+    height: 450px;
+  }
+
+  .tarot-card {
+    width: 25vmin;
+    height: 45vmin;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+  }
+
+  .card-image {
+    font-size: 7rem;
+  }
+}
+
+/* Phone styles */
+@media (max-width: 480px) {
+  .tarot-card {
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+  }
+}
 </style>
