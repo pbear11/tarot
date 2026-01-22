@@ -124,42 +124,13 @@ export default defineComponent({
   justify-content: space-between;
 }
 .simple-wrapper {
-  width: 250px;
-  height: 350px;
-  margin-top: 20vw;
+  width: 37vh;
+  height: 50vh;
+  margin-top: 3vh;
 }
-/* Phone styles */
-@media (max-width: 400px) {
-  .simple-wrapper {
-    width: 220px;
-    height: 300px;
-
-    margin-top: 10vw;
-  }
-}
-@media (min-width: 400px) and (max-width: 768px) {
-  .simple-wrapper {
-    height: 400px;
-    width: 268px;
-  }
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .simple-wrapper {
-    height: 450px;
-    width: 325px;
-  }
-}
-
-@media (min-width: 1025px) {
-  .simple-wrapper {
-    width: 450px;
-    height: 650px;
-    margin-top: 10vw;
-  }
-}
-
 .reading {
   width: 100vw;
+  height: 36vh;
   background: $light-black;
   color: $gray-light;
   padding: 24px;
@@ -256,9 +227,6 @@ export default defineComponent({
   }
 }
 @media (min-width: 769px) {
-  .reading {
-    height: 270px;
-  }
   .reading-explanation {
     width: 500px;
   }
