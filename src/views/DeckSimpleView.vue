@@ -51,7 +51,10 @@ export default defineComponent({
 </script>
 <template>
   <div class="simple flex-col align-center">
-    <tarot-card class="mt-50" @cardPull="handleCardPulled" @cardClose="clearValue" />
+    <div class="simple-wrapper">
+      <tarot-card @cardPull="handleCardPulled" @cardClose="clearValue" />
+    </div>
+    <!-- Explanation part -->
     <div class="reading flex-col align-center" v-if="isCardDrawn">
       <div class="reading-container flex-col align-center">
         <div class="reading-title flex-row align-center">
@@ -119,6 +122,40 @@ export default defineComponent({
 .simple {
   height: 100vh;
   justify-content: space-between;
+}
+.simple-wrapper {
+  width: 250px;
+  height: 350px;
+  margin-top: 20vw;
+}
+/* Phone styles */
+@media (max-width: 400px) {
+  .simple-wrapper {
+    width: 220px;
+    height: 300px;
+
+    margin-top: 10vw;
+  }
+}
+@media (min-width: 400px) and (max-width: 768px) {
+  .simple-wrapper {
+    height: 400px;
+    width: 268px;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .simple-wrapper {
+    height: 450px;
+    width: 325px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .simple-wrapper {
+    width: 450px;
+    height: 650px;
+    margin-top: 10vw;
+  }
 }
 
 .reading {

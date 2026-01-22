@@ -1,14 +1,18 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
-import { tarotCards } from '../data/tarotCards';
+import { ref } from 'vue';
+import { tarotCards, type TarotCardType } from '../data/tarotCards';
 
-export const useCardState = defineStore('cards', () => {
+export const useCardStore = defineStore('cards', () => {
   const count = ref(0);
-  const doubleCount = computed(() => count.value * 2);
-  function increment() {
-    count.value++;
-    console.log(tarotCards);
+  function getRandomCard() {
+    const randomIndex =
+      (crypto.getRandomValues(new Uint32Array(1))[0] as number) % tarotCards.length;
+    return tarotCards[randomIndex] as TarotCardType;
+  }
+  function getReverseState() {
+    const isReversed = (crypto.getRandomValues(new Uint8Array(1))[0] as number) > 127;
+    return isReversed;
   }
 
-  return { count, doubleCount, increment };
+  return { count, getRandomCard, getReverseState };
 });

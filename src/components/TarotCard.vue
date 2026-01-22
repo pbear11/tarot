@@ -1,65 +1,59 @@
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
-
+<script setup lang="ts">
+import { ref, type PropType } from 'vue';
 import type { TarotCardType } from '../data/tarotCards';
-import { getRandomCard, getReverseState } from '../data/tarotCards';
+import { useCardStore } from '../stores/cards';
+
 const animationDuration = 0.6; // seconds
 
-export default defineComponent({
-  name: 'TarotCard',
-  props: {
-    card: {
-      type: Object as PropType<TarotCardType>,
-      required: true,
-      default: () => ({}) as TarotCardType,
-    },
-    isReversed: {
-      type: Boolean,
-      default: false,
-    },
+defineProps({
+  card: {
+    type: Object as PropType<TarotCardType>,
+    required: true,
+    default: () => ({}) as TarotCardType,
   },
-  data() {
-    return {
-      isCardShowing: false,
-      transformStyle: false,
-      isAnimationOngoing: false,
-      cardReverseState: false,
-      currentCard: {} as TarotCardType | undefined,
-      imageUrl: '',
-    };
-  },
-  computed: {
-    cardOrientation(): string {
-      return this.isCardShowing ? 'Reversed' : 'Upright';
-    },
-  },
-  methods: {
-    reverse() {
-      if (this.isAnimationOngoing) return;
-      this.transformStyle = !this.transformStyle;
-      this.isAnimationOngoing = true;
-      setTimeout(() => {
-        if (this.isCardShowing) {
-          this.$emit('cardClose');
-        } else {
-          this.pullCard();
-        }
-        this.isCardShowing = !this.isCardShowing;
-      }, animationDuration * 500);
-      setTimeout(() => {
-        // Click guard off after animation completes
-        this.isAnimationOngoing = false;
-      }, animationDuration * 1000);
-    },
-    async pullCard() {
-      this.cardReverseState = getReverseState();
-      this.currentCard = getRandomCard();
-      this.imageUrl = (await import(`../${this.currentCard?.url}`)).default;
-      this.$emit('cardPull', this.currentCard, this.cardReverseState);
-    },
+  isReversed: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const emit = defineEmits(['cardPull', 'cardClose']);
+const cardStore = useCardStore();
+
+const isCardShowing = ref(false);
+const transformStyle = ref(false);
+const isAnimationOngoing = ref(false);
+const cardReverseState = ref(false);
+const currentCard = ref<TarotCardType | undefined>({} as TarotCardType);
+const imageUrl = ref('');
+
+const pullCard = async () => {
+  cardReverseState.value = cardStore.getReverseState();
+  currentCard.value = cardStore.getRandomCard();
+  imageUrl.value = (await import(`../${currentCard.value?.url}`)).default;
+  emit('cardPull', currentCard.value, cardReverseState.value);
+};
+
+const reverse = () => {
+  if (isAnimationOngoing.value) return;
+  transformStyle.value = !transformStyle.value;
+  isAnimationOngoing.value = true;
+
+  setTimeout(() => {
+    if (isCardShowing.value) {
+      emit('cardClose');
+    } else {
+      pullCard();
+    }
+    isCardShowing.value = !isCardShowing.value;
+  }, animationDuration * 500);
+
+  setTimeout(() => {
+    isAnimationOngoing.value = false;
+  }, animationDuration * 1000);
+};
 </script>
+
 <template>
   <div class="tarot-card-wrapper" :class="{ transformAnimation: transformStyle }">
     <div class="tarot-card" @click="reverse">
@@ -71,7 +65,6 @@ export default defineComponent({
         </div>
 
         <div class="card-content">
-          <!-- <div class="card-image">{{ card.image }}</div> -->
           <h2 class="card-title">{{ card.name }}</h2>
           <p class="card-arcana">
             {{ card.arcana }}<span v-if="card.suit"> • {{ card.suit }}</span>
@@ -99,14 +92,13 @@ export default defineComponent({
 <style scoped>
 .tarot-card-wrapper {
   perspective: 1200px;
-  height: 400px;
+  height: 100%;
   cursor: pointer;
 }
 
 .tarot-card {
   position: relative;
-  width: 30vmin;
-  height: 50vmin;
+  height: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
@@ -233,10 +225,6 @@ img {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .tarot-card-wrapper {
-    height: 350px;
-  }
-
   .card-image {
     font-size: 6rem;
   }
@@ -252,30 +240,12 @@ img {
 }
 /* iPad styles */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .tarot-card-wrapper {
-    height: 450px;
-  }
-
-  .tarot-card {
-    width: 25vmin;
-    height: 45vmin;
-  }
-
   .card-title {
     font-size: 1.6rem;
   }
 
   .card-image {
     font-size: 7rem;
-  }
-}
-
-/* Phone styles */
-@media (max-width: 480px) {
-  .tarot-card {
-    width: 250px;
-    height: 400px;
-    margin: 10px;
   }
 }
 </style>

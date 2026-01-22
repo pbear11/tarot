@@ -2,13 +2,15 @@
 import router from '@/router';
 import { ref } from 'vue';
 import { pullOptions } from '../data/options';
-import { type TarotCard } from '../data/tarotCards';
+import type { TarotCardType } from '../data/tarotCards';
 
 const selectedCount = ref(1);
-const pulledCards = ref<TarotCard[]>([]);
+const pulledCards = ref<TarotCardType[]>([]);
 
-const selectOption = (route: string) => {
-  router.push(route);
+const selectOption = (route: string, isDisabled: boolean) => {
+  if (!isDisabled) {
+    router.push(route);
+  }
 };
 </script>
 
@@ -24,16 +26,21 @@ const selectOption = (route: string) => {
     <div class="pull-type-section">
       <h3>Choose Your Reading</h3>
       <div class="pull-options">
-        <button
-          v-for="option in pullOptions"
-          :key="option.route"
-          :class="['pull-btn', { active: selectedCount === option.count }]"
-          @click="selectOption(option.route)"
-        >
-          <span class="icon">{{ option.icon }}</span>
-          <span class="label">{{ option.label }}</span>
-          <span class="desc">{{ option.description }}</span>
-        </button>
+        <div v-for="option in pullOptions" :key="option.route" class="pull-btn-wrapper">
+          <button
+            :class="[
+              'pull-btn',
+              { active: selectedCount === option.count, disabled: option.disabled },
+            ]"
+            @click="selectOption(option.route, option.disabled)"
+            :disabled="option.disabled"
+          >
+            <span class="icon">{{ option.icon }}</span>
+            <span class="label">{{ option.label }}</span>
+            <span class="desc">{{ option.description }}</span>
+          </button>
+          <div v-if="option.disabled" class="coming-soon-badge">Coming Soon</div>
+        </div>
       </div>
     </div>
 
@@ -42,8 +49,8 @@ const selectOption = (route: string) => {
       <p>
         💫 To ensure your reading is untainted and spiritually aligned, we use a Cryptographic
         Randomness Algorithm. It draws from the inherent chaos of the physical world to determine
-        your cards. We’ve removed the human 'pattern' from the code, allowing the universe's true
-        synchronicity to speak through the data./p>
+        your cards. We've removed the human 'pattern' from the code, allowing the universe's true
+        synchronicity to speak through the data.
       </p>
     </div>
   </div>
@@ -94,6 +101,10 @@ const selectOption = (route: string) => {
   gap: 1rem;
 }
 
+.pull-btn-wrapper {
+  position: relative;
+}
+
 .pull-btn {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -107,26 +118,48 @@ const selectOption = (route: string) => {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.95rem;
+  width: 100%;
+
+  &:hover:not(.disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .icon {
+    font-size: 1.8rem;
+  }
+
+  .label {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .desc {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
 }
 
-.pull-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translateY(-2px);
-}
-
-.pull-btn .icon {
-  font-size: 1.8rem;
-}
-
-.pull-btn .label {
+.coming-soon-badge {
+  position: absolute;
+  top: -12px;
+  right: 10px;
+  background: #ff6b6b;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
   font-weight: 600;
-  font-size: 1rem;
-}
-
-.pull-btn .desc {
-  font-size: 0.8rem;
-  opacity: 0.8;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
 /* Results Section */
@@ -187,6 +220,13 @@ const selectOption = (route: string) => {
   .pull-button {
     padding: 1rem 2rem;
     font-size: 1rem;
+  }
+
+  .coming-soon-badge {
+    top: -10px;
+    right: 5px;
+    font-size: 0.7rem;
+    padding: 3px 10px;
   }
 }
 </style>
