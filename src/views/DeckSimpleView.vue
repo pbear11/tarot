@@ -123,38 +123,47 @@ export default defineComponent({
   height: 100vh;
   justify-content: space-between;
 }
+
 .simple-wrapper {
   width: 37vh;
   height: 50vh;
   margin-top: 3vh;
 }
+
 .reading {
   width: 100vw;
-  height: 36vh;
-  background: $light-black;
-  color: $gray-light;
+  min-height: 36vh;
+  background: $terminal-dark;
+  color: $terminal-green-dim;
   padding: 24px;
+  font-family: $font-family-mono;
+  border-top: 1px solid rgba($terminal-green, 0.2);
+
   .reading-container {
     max-width: 500px;
   }
+
   .reading-title {
     font-weight: 600;
-    font-size: $font-size-xl;
+    font-size: 1.4rem;
     margin-bottom: 16px;
     width: 100%;
     justify-content: space-evenly;
+    color: $terminal-green;
+    text-shadow: 0 0 10px $terminal-green-glow;
   }
 
   .reversed-badge {
     display: inline-block;
-    padding: 4px 12px;
-    background-color: #f0f0f0;
+    padding: 4px 10px;
+    background-color: transparent;
+    border: 1px solid rgba($terminal-red, 0.5);
     border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
-    color: $gray-light;
+    font-size: 11px;
+    font-weight: 600;
+    color: $terminal-red;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
   }
 
   .question-buttons {
@@ -163,25 +172,29 @@ export default defineComponent({
     justify-content: center;
 
     .question-btn {
-      padding: 10px 20px;
-      border: 1px solid #ddd;
-      background-color: #fff;
+      padding: 10px 18px;
+      border: 1px solid rgba($terminal-green, 0.3);
+      background-color: rgba($terminal-green, 0.05);
       border-radius: 6px;
       cursor: pointer;
       font-weight: 500;
-      font-size: $font-size-base;
+      font-size: 0.9rem;
       transition: all 0.2s ease;
-      color: #333;
+      color: $terminal-green-dim;
+      font-family: inherit;
 
       &:hover {
-        border-color: #999;
-        background-color: #fafafa;
+        border-color: $terminal-green;
+        background-color: rgba($terminal-green, 0.1);
+        color: $terminal-green;
+        box-shadow: 0 0 15px rgba($terminal-green, 0.2);
       }
 
       &.active {
-        background-color: #333;
-        color: #fff;
-        border-color: #333;
+        background-color: rgba($terminal-green, 0.15);
+        color: $terminal-green;
+        border-color: $terminal-green;
+        text-shadow: 0 0 8px $terminal-green-glow;
       }
     }
   }
@@ -189,43 +202,55 @@ export default defineComponent({
   .reading-explanation {
     margin-top: 18px;
     padding: 16px;
-    background-color: $light-black;
-    border-radius: 8px;
-    border-left: 3px solid #333;
+    background-color: rgba($terminal-green, 0.03);
+    border-radius: 6px;
+    border-left: 3px solid $terminal-green;
 
     .explanation-title {
-      font-size: $font-size-lg;
+      font-size: 1rem;
       font-weight: 600;
+      color: $terminal-cyan;
+      margin-bottom: 8px;
     }
 
     .explanation-text {
       line-height: 1.7;
-      color: $gray-light;
-      font-size: 15px;
+      color: $terminal-gray;
+      font-size: 14px;
     }
   }
 
   .reading-basic-explanation {
     margin-top: 16px;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 16px;
+    border-radius: 6px;
+    background: rgba($terminal-green, 0.03);
+    border-left: 3px solid $terminal-green;
 
-    .summary-label {
+    .summary-label,
+    .yes-or-no-title {
       font-weight: 600;
       margin-bottom: 8px;
-      font-size: $font-size-base;
+      font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      color: $terminal-cyan;
+    }
+
+    .yes-or-no-title {
+      margin-top: 12px;
     }
 
     .summary-text {
       line-height: 1.7;
-      color: $gray-light;
-      font-size: $font-size-base;
+      color: $terminal-gray;
+      font-size: 0.9rem;
       text-transform: none;
+      font-weight: 400;
     }
   }
 }
+
 @media (min-width: 769px) {
   .reading-explanation {
     width: 500px;

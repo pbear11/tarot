@@ -89,7 +89,7 @@ const reverse = () => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .tarot-card-wrapper {
   perspective: 1200px;
   height: 100%;
@@ -100,7 +100,6 @@ const reverse = () => {
   position: relative;
   height: 100%;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
   background-position: center;
   margin: 20px;
@@ -114,25 +113,27 @@ const reverse = () => {
   transform: rotateY(180deg);
 }
 
-/* Card Front */
+/* Card Front - Terminal Style */
 .card-front {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: $terminal-dark;
   justify-content: space-between;
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 12px;
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(102, 126, 234, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+    0 0 30px $terminal-green-glow,
+    0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba($terminal-green, 0.3);
+  font-family: $font-family-mono;
 }
 
+/* Scanline effect */
 .card-front::before {
   content: '';
   position: absolute;
@@ -140,9 +141,27 @@ const reverse = () => {
   left: 0;
   right: 0;
   bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Grid pattern overlay */
+.card-front::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 50% 50%, rgba($terminal-green, 0.05) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -153,14 +172,16 @@ const reverse = () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 12px;
 }
+
 img {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 12px;
   transform: scaleX(-1);
 }
+
 .card-header,
 .card-footer {
   display: flex;
@@ -169,9 +190,11 @@ img {
 }
 
 .card-corner {
-  font-size: 1.5rem;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+  font-size: 1.2rem;
+  color: $terminal-green;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px $terminal-green-glow;
 }
 
 .card-content {
@@ -179,73 +202,70 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
   position: relative;
   z-index: 1;
   flex: 1;
 }
 
-.card-image {
-  font-size: 8rem;
-  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.2));
-  /* animation: float 3s ease-in-out infinite; */
-}
-
 .card-title {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin: 0;
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: $terminal-green;
+  text-shadow: 0 0 15px $terminal-green-glow;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .card-arcana {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  color: $terminal-gray;
   margin: 0;
-  font-style: italic;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-style: normal;
+  letter-spacing: 0.5px;
 }
 
 /* Hover Effect */
 .tarot-card-wrapper:hover .card-corner {
   opacity: 1;
+  text-shadow: 0 0 12px $terminal-green-glow;
 }
 
 .tarot-card-wrapper:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-.tarot-card-wrapper:hover .tarot-card {
+.tarot-card-wrapper:hover .card-front {
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(102, 126, 234, 0.4);
+    0 0 40px rgba($terminal-green, 0.3),
+    0 30px 80px rgba(0, 0, 0, 0.6);
+  border-color: $terminal-green;
+}
+
+.tarot-card-wrapper:hover .card-title {
+  text-shadow: 0 0 20px $terminal-green-glow;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .card-image {
-    font-size: 6rem;
-  }
-
   .card-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
-  .card-front,
-  .card-info {
+  .card-front {
     padding: 1rem;
   }
+
+  .card-corner {
+    font-size: 1rem;
+  }
 }
+
 /* iPad styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .card-title {
-    font-size: 1.6rem;
-  }
-
-  .card-image {
-    font-size: 7rem;
+    font-size: 1.4rem;
   }
 }
 </style>
