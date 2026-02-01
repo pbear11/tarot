@@ -11,7 +11,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // This prepends your variables to every component's style block
-        additionalData: `@import "@/assets/variables.scss";`,
+        additionalData: `@use "@/assets/variables.scss" as *;`,
       },
     },
   },
