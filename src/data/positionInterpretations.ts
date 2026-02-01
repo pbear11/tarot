@@ -1,7 +1,12 @@
 // src/data/positionInterpretations.ts
 
-export type Position = 'past' | 'present' | 'future';
+export type Position = typeof CardLabel.past | typeof CardLabel.present | typeof CardLabel.future;
 export type Category = 'love' | 'career' | 'life' | 'ex';
+export const CardLabel = {
+  past: 'past',
+  present: 'present',
+  future: 'future',
+}
 
 export interface PositionReading {
   upright: string;
@@ -26,13 +31,6 @@ export interface CardPositionInterpretations {
   present: PositionData;
   future: PositionData;
 }
-
-const emptyReading: PositionReading = { upright: '', reversed: '' };
-const emptyPosition = (): PositionData => ({
-  love: { ...emptyReading },
-  career: { ...emptyReading },
-  life: { ...emptyReading },
-});
 
 export const positionInterpretations: CardPositionInterpretations[] = [
   // Major Arcana (0-21)

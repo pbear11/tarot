@@ -30,7 +30,7 @@ const imageUrl = ref('');
 const pullCard = async () => {
   cardReverseState.value = cardStore.getReverseState();
   currentCard.value = cardStore.getRandomCard();
-  imageUrl.value = (await import(`../${currentCard.value?.url}`)).default;
+  imageUrl.value = '/src' + currentCard.value?.url;
   emit('cardPull', currentCard.value, cardReverseState.value);
 };
 

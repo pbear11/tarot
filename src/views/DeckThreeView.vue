@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { positionInterpretations, type Category, type Position } from '../data/positionInterpretations';
-import type { TarotCardType } from '../data/tarotCards';
-import { tarotCards } from '../data/tarotCards';
+import type { CardPositionInterpretations } from '../data/positionInterpretations';
+import { CardLabel, positionInterpretations, type Category, type Position } from '../data/positionInterpretations';
+import { useCardStore } from '../stores/cards';
+
+const cardStore = useCardStore();
 
 interface DrawnCard {
-  card: TarotCardType;
+  card: CardPositionInterpretations;
   isReversed: boolean;
   isRevealed: boolean;
   imageUrl: string;
@@ -22,47 +24,36 @@ const categories: { id: ReadingCategory; label: string; icon: string }[] = [
 ];
 
 const drawnCards = ref<DrawnCard[]>([]);
-const positions: Position[] = ['past', 'present', 'future'];
 const positionLabels: Record<Position, string> = {
-  past: 'Past',
-  present: 'Present',
-  future: 'Future',
+  past: CardLabel.past,
+  present: CardLabel.present,
+  future: CardLabel.future,
 };
 const selectedCardIndex = ref<number | null>(null);
 const selectedCategory = ref<ReadingCategory | null>(null);
 const isDrawing = ref(false);
 
-const getRandomCard = (): TarotCardType => {
-  const index = Math.floor(Math.random() * tarotCards.length);
-  return tarotCards[index] as TarotCardType;
-};
-
-const getReverseState = (): boolean => Math.random() > 0.5;
-
-const loadCardImage = async (card: TarotCardType): Promise<string> => {
-  const module = await import(`../${card.url}`);
-  return module.default;
-};
+const createDrawnCard = (card: CardPositionInterpretations, position: Position): DrawnCard => ({
+  card,
+  position,
+  isReversed: cardStore.getReverseState(),
+  isRevealed: false,
+  imageUrl: '/src' + card.url,
+});
 
 const selectCategory = async (category: ReadingCategory) => {
   if (isDrawing.value) return;
-
   isDrawing.value = true;
   selectedCategory.value = category;
-  drawnCards.value = [];
   selectedCardIndex.value = null;
 
-  for (const position of positions) {
-    const card = getRandomCard();
-    const imageUrl = await loadCardImage(card);
-    drawnCards.value.push({
-      card,
-      isReversed: getReverseState(),
-      isRevealed: false,
-      imageUrl,
-      position,
-    });
-  }
+  const { pastCard, presentCard, futureCard } = await cardStore.getThreeCards();
+
+  drawnCards.value = [
+    createDrawnCard(pastCard!, CardLabel.past),
+    createDrawnCard(presentCard!, CardLabel.present),
+    createDrawnCard(futureCard!, CardLabel.future),
+  ];
 
   isDrawing.value = false;
 };
@@ -76,6 +67,7 @@ const revealCard = (index: number) => {
 };
 
 const resetReading = () => {
+  cardStore.resetCards();
   drawnCards.value = [];
   selectedCardIndex.value = null;
   selectedCategory.value = null;
@@ -89,16 +81,21 @@ const drawAgain = () => {
 
 const selectedCard = computed(() => {
   if (selectedCardIndex.value === null) return null;
+  console.log('selectedCard', selectedCardIndex.value);
   return drawnCards.value[selectedCardIndex.value];
 });
 
 const getInterpretation = (item: DrawnCard): string => {
   if (!selectedCategory.value) return '';
+  console.log('getInterpretation', item);
 
   const positionData = positionInterpretations.find((p) => p.id === item.card.id);
   if (!positionData) return '';
+  console.log('positionData', positionData);
+  console.log('item.position', item.position);
+  console.log('selectedCategory.value', selectedCategory.value);
 
-  const reading = positionData[item.position][selectedCategory.value];
+  const reading = positionData[item.position as Position][selectedCategory.value as Category];
 
   // Handle optional ex category - fallback to general message if not available
   if (!reading || (!reading.upright && !reading.reversed)) {
